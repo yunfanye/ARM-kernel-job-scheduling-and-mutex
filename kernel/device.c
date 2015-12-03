@@ -45,8 +45,12 @@ static dev_t devices[NUM_DEVICES];
  */
 void dev_init(void)
 {
-   /* the following line is to get rid of the warning and should not be needed */	
-   devices[0]=devices[0];
+	int i = 0;
+	for(; i < NUM_DEVICES; i++)
+	{
+		devices[i].sleep_queue = NULL;
+		devices[i].next_match = dev_freq[i] + (unsigned long)0;//???
+	}
 }
 
 
@@ -58,10 +62,27 @@ void dev_init(void)
  */
 void dev_wait(unsigned int dev __attribute__((unused)))
 {
-	
+	//??disable interrupt
+	tcb_t * sleep_queue_current = devices[dev].sleep_queue;
+	tcb_t * run_current = get_run_task(dev);
+	if(devices[dev].sleep_queue == NULL)
+	{
+		devices[dev].sleep_queue = run_current;
+	}
+	else 
+	{
+		while(sleep_queue_current -> sleep_queue != NULL)
+		{
+			sleep_queue_current = sleep_queue_current -> sleep_queue;
+		}
+		sleep_queue_current -> sleep_queue = run_current;
+	}
+	// no other??
 }
-
-
+/*
+dev_wait is called by tasks (through event_wait) when they want to wait for an event
+-  E.g. when have finished execution of their current period and want to suspend themselves until the next period
+*/
 /**
  * @brief Signals the occurrence of an event on all applicable devices. 
  * This function should be called on timer interrupts to determine that 
@@ -71,6 +92,28 @@ void dev_wait(unsigned int dev __attribute__((unused)))
  */
 void dev_update(unsigned long millis __attribute__((unused)))
 {
-	
+	int i = 0;
+	for(; i < NUM_DEVICES; i ++)
+	{
+		if(millis >= devices[NUM_DEVICES].next_match)
+		{
+			devices[NUM_DEVICES].next_match += dev_freq[NUM_DEVICES];
+			tcb_t * sleep_queue_current = devices[dev].sleep_queue;
+
+			// put all tasks in the sleep queue to the run queue
+			while(sleep_queue_current != NULL)
+			{
+				sleep_queue_current -> sleep_queue = NULL;
+				runqueue_add(sleep_queue_current, sleep_queue_current -> cur_prio);
+				sleep_queue_current = sleep_queue_current -> sleep_queue;
+			}
+		}
+	}
 }
 
+/*dev_update should be called by your timer interrupt handler code
+-  dev update should check whether the next event for every device has occurred
+-  If the next event has occurred
+!  Wake up all the tasks on this device s sleep_queue
+!  Make these tasks ready to run
+*/
