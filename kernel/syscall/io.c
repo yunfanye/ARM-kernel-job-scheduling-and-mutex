@@ -22,18 +22,65 @@
 
 
 /* Read count bytes (or less) from fd into the buffer buf. */
-ssize_t read_syscall(int fd __attribute__((unused)), void *buf __attribute__((unused)), size_t count __attribute__((unused)))
+ssize_t read_syscall(int fd, void *buf, size_t count)
 {
-
-  return 1; /* remove this return line after you have added your code here */
-	
+	/* if count > SSIZE_MAX, the result is undefined */
+	char c;
+	size_t bytes_read = 0;
+	char * bufp = buf;
+	/* check if fd is stdin */
+	if(fd != STDIN_FILENO) {
+		return -EBADF;
+	}
+	/* check if the memory is writable, SDRAM */
+	if(!((size_t)buf >= SDRAM_start && (size_t)buf + count <= SDRAM_end)) {
+		return -EFAULT;
+	}
+	while(bytes_read < count) {
+		c = getc();
+		switch(c) {
+			case DEL_CHAR:
+			case '\b':
+				/* delete last character */
+				bytes_read--;
+				/* puts "\b \b" */
+				puts("\b \b");
+				break;
+			case '\n':
+			case '\r':
+				bufp[bytes_read] = '\n';
+				bytes_read++;
+				putc('\n');
+			case EOT_CHAR:
+				return bytes_read;
+			default:
+				bufp[bytes_read] = c;
+				bytes_read++;
+				putc(c);
+				break; 
+		}
+	}
+	return bytes_read;
 }
 
 /* Write count bytes to fd from the buffer buf. */
-ssize_t write_syscall(int fd  __attribute__((unused)), const void *buf  __attribute__((unused)), size_t count  __attribute__((unused)))
+ssize_t write_syscall(int fd, const void *buf, size_t count)
 {
-
-  return 1; /* remove this return line after you have added your code here */
-	
+	/* if count > SSIZE_MAX, the result is undefined */
+	size_t bytes_written;
+	const char * bufp = buf;
+	/* check if fd is stdout */
+	if(fd != STDOUT_FILENO) {
+		return -EBADF;
+	}
+	/* check if buf is readable, SDRAM or ROM */
+	if(!((size_t)buf >= SDRAM_start && (size_t)buf + count <= SDRAM_end) &&
+		!((size_t)buf >= ROM_start + 1 && (size_t)buf + count <= ROM_end)) {
+		return -EFAULT;
+	}
+	for(bytes_written = 0; bytes_written < count; bytes_written++) {
+		putc(bufp[bytes_written]);
+	}
+	return bytes_written;
 }
 
