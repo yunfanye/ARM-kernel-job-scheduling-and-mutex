@@ -12,10 +12,11 @@
 #include <arm/timer.h>
 #include <syscall.h>
 
+extern unsigned long _time;
 
 unsigned long time_syscall(void)
 {
- return 1; /* remove this line after adding your code here */	
+	return _time;
 }
 
 
@@ -26,7 +27,8 @@ unsigned long time_syscall(void)
  *
  * 
  */
-void sleep_syscall(unsigned long millis  __attribute__((unused)))
+void sleep_syscall(unsigned long milliseconds)
 {
-	
+	unsigned long end_time = _time + milliseconds;
+	while(_time < end_time); /* suspend thread */
 }
