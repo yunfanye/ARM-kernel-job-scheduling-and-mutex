@@ -24,7 +24,12 @@
 
 int task_create(task_t* tasks  __attribute__((unused)), size_t num_tasks  __attribute__((unused)))
 {
-  return 1; /* remove this line after adding your code */
+	/* init devices */
+	dev_init();
+	
+	
+	
+	return 1; /* remove this line after adding your code */
 }
 
 int event_wait(unsigned int dev  __attribute__((unused)))
