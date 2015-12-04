@@ -10,6 +10,7 @@
  */
 
 #include <asm.h>
+#include <bits/swi.h>
 
 	.file "read.S"
 
