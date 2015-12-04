@@ -3,7 +3,7 @@
 #include <arm/reg.h>
 #include <types.h>
 #include <exports.h>
-#include "timer.h"
+#include "timer_constants.h"
 
 extern unsigned long _time;
 

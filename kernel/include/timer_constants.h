@@ -1,5 +1,5 @@
-#ifndef _TIMER_H_
-#define _TIMER_H_
+#ifndef _TIMER_CONSTANTS_H_
+#define _TIMER_CONSTANTS_H_
 
 /* 3.25 MHz */
 #define OS_CLOCK					3250000
