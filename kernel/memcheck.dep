@@ -1,0 +1,8 @@
+/home/fangdac/342-lab4/342-lab4/kernel/memcheck.o:  \
+ /home/fangdac/342-lab4/342-lab4/kernel/memcheck.c \
+  /home/fangdac/342-lab4/342-lab4/kernel/include/kernel.h \
+  /home/fangdac/342-lab4/342-lab4/kernel/include/types.h
+
+/home/fangdac/342-lab4/342-lab4/kernel/include/kernel.h:
+
+/home/fangdac/342-lab4/342-lab4/kernel/include/types.h:

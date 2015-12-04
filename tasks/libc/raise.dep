@@ -1,0 +1,17 @@
+/home/fangdac/342-lab4/342-lab4/tasks/libc/raise.o:  \
+ /home/fangdac/342-lab4/342-lab4/tasks/libc/raise.c \
+  /home/fangdac/342-lab4/342-lab4/tasks/libc/include/stdio.h \
+  /home/fangdac/342-lab4/342-lab4/tasks/libc/include/stdarg.h \
+  /home/fangdac/342-lab4/342-lab4/tasks/libc/include/sys/types.h \
+  /home/fangdac/342-lab4/342-lab4/tasks/libc/include/bits/types.h \
+  /home/fangdac/342-lab4/342-lab4/tasks/libc/include/stdlib.h
+
+/home/fangdac/342-lab4/342-lab4/tasks/libc/include/stdio.h:
+
+/home/fangdac/342-lab4/342-lab4/tasks/libc/include/stdarg.h:
+
+/home/fangdac/342-lab4/342-lab4/tasks/libc/include/sys/types.h:
+
+/home/fangdac/342-lab4/342-lab4/tasks/libc/include/bits/types.h:
+
+/home/fangdac/342-lab4/342-lab4/tasks/libc/include/stdlib.h:

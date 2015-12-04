@@ -1,0 +1,20 @@
+/home/fangdac/342-lab4/342-lab4/kernel/syscall/time.o:  \
+ /home/fangdac/342-lab4/342-lab4/kernel/syscall/time.c \
+  /home/fangdac/342-lab4/342-lab4/kernel/include/types.h \
+  /home/fangdac/342-lab4/342-lab4/kernel/include/config.h \
+  /home/fangdac/342-lab4/342-lab4/kernel/include/bits/errno.h \
+  /home/fangdac/342-lab4/342-lab4/kernel/include/arm/timer.h \
+  /home/fangdac/342-lab4/342-lab4/kernel/include/syscall.h \
+  /home/fangdac/342-lab4/342-lab4/kernel/include/task.h
+
+/home/fangdac/342-lab4/342-lab4/kernel/include/types.h:
+
+/home/fangdac/342-lab4/342-lab4/kernel/include/config.h:
+
+/home/fangdac/342-lab4/342-lab4/kernel/include/bits/errno.h:
+
+/home/fangdac/342-lab4/342-lab4/kernel/include/arm/timer.h:
+
+/home/fangdac/342-lab4/342-lab4/kernel/include/syscall.h:
+
+/home/fangdac/342-lab4/342-lab4/kernel/include/task.h:

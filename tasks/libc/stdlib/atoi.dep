@@ -1,0 +1,11 @@
+/home/fangdac/342-lab4/342-lab4/tasks/libc/stdlib/atoi.o:  \
+ /home/fangdac/342-lab4/342-lab4/tasks/libc/stdlib/atoi.c \
+  /home/fangdac/342-lab4/342-lab4/tasks/libc/include/stdlib.h \
+  /home/fangdac/342-lab4/342-lab4/tasks/libc/include/ctype.h \
+  /home/fangdac/342-lab4/342-lab4/tasks/libc/include/inline.h
+
+/home/fangdac/342-lab4/342-lab4/tasks/libc/include/stdlib.h:
+
+/home/fangdac/342-lab4/342-lab4/tasks/libc/include/ctype.h:
+
+/home/fangdac/342-lab4/342-lab4/tasks/libc/include/inline.h:

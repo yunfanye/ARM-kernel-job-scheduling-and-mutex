@@ -1,0 +1,29 @@
+/home/fangdac/342-lab4/342-lab4/kernel/lock/mutex.o:  \
+ /home/fangdac/342-lab4/342-lab4/kernel/lock/mutex.c \
+  /home/fangdac/342-lab4/342-lab4/kernel/include/lock.h \
+  /home/fangdac/342-lab4/342-lab4/kernel/include/types.h \
+  /home/fangdac/342-lab4/342-lab4/kernel/include/task.h \
+  /home/fangdac/342-lab4/342-lab4/kernel/include/config.h \
+  /home/fangdac/342-lab4/342-lab4/kernel/include/sched.h \
+  /home/fangdac/342-lab4/342-lab4/kernel/include/bits/errno.h \
+  /home/fangdac/342-lab4/342-lab4/kernel/include/arm/psr.h \
+  /home/fangdac/342-lab4/342-lab4/kernel/include/inline.h \
+  /home/fangdac/342-lab4/342-lab4/kernel/include/arm/exception.h
+
+/home/fangdac/342-lab4/342-lab4/kernel/include/lock.h:
+
+/home/fangdac/342-lab4/342-lab4/kernel/include/types.h:
+
+/home/fangdac/342-lab4/342-lab4/kernel/include/task.h:
+
+/home/fangdac/342-lab4/342-lab4/kernel/include/config.h:
+
+/home/fangdac/342-lab4/342-lab4/kernel/include/sched.h:
+
+/home/fangdac/342-lab4/342-lab4/kernel/include/bits/errno.h:
+
+/home/fangdac/342-lab4/342-lab4/kernel/include/arm/psr.h:
+
+/home/fangdac/342-lab4/342-lab4/kernel/include/inline.h:
+
+/home/fangdac/342-lab4/342-lab4/kernel/include/arm/exception.h:

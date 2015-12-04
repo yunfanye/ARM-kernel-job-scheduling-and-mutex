@@ -1,0 +1,11 @@
+/home/fangdac/342-lab4/342-lab4/tasks/libc/string/strcat.o:  \
+ /home/fangdac/342-lab4/342-lab4/tasks/libc/string/strcat.c \
+  /home/fangdac/342-lab4/342-lab4/tasks/libc/include/string.h \
+  /home/fangdac/342-lab4/342-lab4/tasks/libc/include/sys/types.h \
+  /home/fangdac/342-lab4/342-lab4/tasks/libc/include/bits/types.h
+
+/home/fangdac/342-lab4/342-lab4/tasks/libc/include/string.h:
+
+/home/fangdac/342-lab4/342-lab4/tasks/libc/include/sys/types.h:
+
+/home/fangdac/342-lab4/342-lab4/tasks/libc/include/bits/types.h:

@@ -1,0 +1,8 @@
+/home/fangdac/342-lab4/342-lab4/tasks/libc/swi/time.o:  \
+ /home/fangdac/342-lab4/342-lab4/tasks/libc/swi/time.S \
+  /home/fangdac/342-lab4/342-lab4/tasks/libc/include/asm.h \
+  /home/fangdac/342-lab4/342-lab4/tasks/libc/include/bits/swi.h
+
+/home/fangdac/342-lab4/342-lab4/tasks/libc/include/asm.h:
+
+/home/fangdac/342-lab4/342-lab4/tasks/libc/include/bits/swi.h:
