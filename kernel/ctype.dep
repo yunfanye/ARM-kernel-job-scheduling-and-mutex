@@ -1,8 +1,0 @@
-/home/fangdac/342-lab4/342-lab4/kernel/ctype.o:  \
- /home/fangdac/342-lab4/342-lab4/kernel/ctype.c \
-  /home/fangdac/342-lab4/342-lab4/kernel/include/ctype.h \
-  /home/fangdac/342-lab4/342-lab4/kernel/include/inline.h
-
-/home/fangdac/342-lab4/342-lab4/kernel/include/ctype.h:
-
-/home/fangdac/342-lab4/342-lab4/kernel/include/inline.h:
