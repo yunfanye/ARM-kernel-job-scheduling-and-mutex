@@ -42,6 +42,15 @@ FUNC(launch_task)
 /* add your code to perform a full context switch */
 FUNC(ctx_switch_full)
 
+    @ save current context
+    STMIA r1, {r4-r11, sp, lr}
+	@ restore context
+    LDMIA r0, {r4-r11, sp, lr}
+    MOV   pc, lr
 
 /*add your code to perform a half context switch */	
 FUNC(ctx_switch_half)
+
+	@ restore context
+	LDMIA	r0!, {r4-r11, sp, lr}
+	MOV 	pc, lr
