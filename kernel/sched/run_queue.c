@@ -76,7 +76,13 @@ void runqueue_init(void)
  */
 void runqueue_add(tcb_t* tcb, uint8_t prio)
 {
-	
+	uint8_t task_group = prio >> 3;
+	uint8_t task_position = prio & 0x07;
+
+	run_list[prio] = tcb;
+	run_bits[task_group] = run_bits[task_group] | (uint8_t)(1 << task_position);
+	group_run_bits = group_run_bits | (1 << task_group);
+
 }
 
 
@@ -89,7 +95,16 @@ void runqueue_add(tcb_t* tcb, uint8_t prio)
  */
 tcb_t* runqueue_remove(uint8_t prio  __attribute__((unused)))
 {
-	return (tcb_t *)1; // fix this; dummy return to prevent warning messages	
+	uint8_t task_group = prio >> 3;
+	uint8_t task_position = prio & 0x07;
+	
+	tcb_t * retval = run_list[prio];
+	run_list[prio] = NULL;
+	run_bits[task_group] = run_bits[task_group] & (uint8_t)( ~ (1 << task_position));
+
+	if(run_bits[task_group] == 0)
+		group_run_bits = group_run_bits | (uint8_t)( ~ (1 << task_group));
+	return retval; // fix this; dummy return to prevent warning messages	
 }
 
 /**
