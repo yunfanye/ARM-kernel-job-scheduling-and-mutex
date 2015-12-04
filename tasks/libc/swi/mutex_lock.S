@@ -23,7 +23,7 @@ FUNC(mutex_lock)
 	cmp r0, #0
 	bge .end
 
-	sub r0, #0, r0;
+	neg r0, r0;
 	ldr r3, =errno
 	str r0, [r3]
 	mov r0, #1

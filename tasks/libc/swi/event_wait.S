@@ -13,3 +13,7 @@
 
 FUNC(event_wait)
 	@ Add code here.  Put your name at the top.
+	STMFD	sp!, {r1-r12, lr}
+	swi		EVENT_WAIT
+	LDMFD	sp!, {r1-r12, lr}
+	mov		pc, lr
