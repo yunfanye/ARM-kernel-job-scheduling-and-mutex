@@ -1,8 +1,0 @@
-/home/fangdac/342-lab4/342-lab4/kernel/sched/ctx_switch_asm.o:  \
- /home/fangdac/342-lab4/342-lab4/kernel/sched/ctx_switch_asm.S \
-  /home/fangdac/342-lab4/342-lab4/kernel/include/asm.h \
-  /home/fangdac/342-lab4/342-lab4/kernel/include/arm/psr.h
-
-/home/fangdac/342-lab4/342-lab4/kernel/include/asm.h:
-
-/home/fangdac/342-lab4/342-lab4/kernel/include/arm/psr.h:
