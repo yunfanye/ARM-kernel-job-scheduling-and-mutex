@@ -67,7 +67,7 @@ void dev_wait(unsigned int dev __attribute__((unused)))
 {
 	//??disable interrupt
 	tcb_t * sleep_queue_current = devices[dev].sleep_queue;
-	tcb_t * run_current = get_run_task(dev);
+	tcb_t * run_current = get_cur_tcb();
 	if(devices[dev].sleep_queue == NULL)
 	{
 		devices[dev].sleep_queue = run_current;
@@ -98,10 +98,10 @@ void dev_update(unsigned long millis __attribute__((unused)))
 	int i = 0;
 	for(; i < NUM_DEVICES; i ++)
 	{
-		if(millis >= devices[NUM_DEVICES].next_match)
+		if(millis >= devices[i].next_match)
 		{
-			devices[NUM_DEVICES].next_match += dev_freq[NUM_DEVICES];
-			tcb_t * sleep_queue_current = devices[dev].sleep_queue;
+			devices[i].next_match += dev_freq[i];
+			tcb_t * sleep_queue_current = devices[i].sleep_queue;
 
 			// put all tasks in the sleep queue to the run queue
 			while(sleep_queue_current != NULL)
