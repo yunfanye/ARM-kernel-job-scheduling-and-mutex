@@ -39,15 +39,17 @@ void mutex_init()
 int mutex_create(void)
 {
 	//disable_interrupt;
+	disable_interrupts();
 	int position = find_available_mutex();
 	if(position != -1)
 	{
 		gtMutex[position].bAvailable = FALSE;
+		enable_interrupts();
 		return position;
 	}
 	else//do nothing
 	{
-		//enable_interrupts;
+		enable_interrupts();
 		return -ENOMEM;
 	}
 
@@ -56,14 +58,20 @@ int mutex_create(void)
 
 int mutex_lock(int mutex  __attribute__((unused)))
 {
-	//interrupt
+	disable_interrupts();
 	tcb_t * current = get_cur_tcb();
 
 	if(mutex < 0 || mutex > OS_NUM_MUTEX)
+	{
+		enable_interrupts();
 		return -EINVAL;
+	}
 
 	else if (gtMutex[mutex].bAvailable == TRUE)
+	{
+		enable_interrupts();
 		return -EINVAL;
+	}
 
 	else if (gtMutex[mutex].bLock == TRUE || 
 		(gtMutex[mutex].pHolding_Tcb != NULL && gtMutex[mutex].pHolding_Tcb != current))
@@ -88,22 +96,30 @@ int mutex_lock(int mutex  __attribute__((unused)))
 	gtMutex[mutex].bLock = TRUE;
 	gtMutex[mutex].pHolding_Tcb = current;
 	current.holds_lock ++ ;
+	enable_interrupts();
 	return 0;
 }
 
 int mutex_unlock(int mutex  __attribute__((unused)))
 {
-
+	disable_interrupts();
 	tcb_t * current = get_cur_tcb();
 
 	if(mutex < 0 || mutex > OS_NUM_MUTEX)
+	{
+		enable_interrupts();
 		return -EINVAL;
+	}
 
 	else if (gtMutex[mutex].bAvailable == TRUE)
+	{
+		enable_interrupts();
 		return -EINVAL;
+	}
 
 	else if (gtMutex[mutex].pHolding_Tcb != current)
 	{
+		enable_interrupts();
 		return -EPERM;
 	}
 	else
@@ -120,6 +136,7 @@ int mutex_unlock(int mutex  __attribute__((unused)))
 		{
     		gtMutex[mutex].pHolding_Tcb = NULL;
 		}
+		enable_interrupts();
 		return 0;
 	}
 }
