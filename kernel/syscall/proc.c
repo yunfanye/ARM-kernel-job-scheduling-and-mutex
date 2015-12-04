@@ -22,6 +22,9 @@
 #include <arm/physmem.h>
 #include <device.h>
 
+#define NULL    ((void *)0)
+
+extern void runqueue_init();
 
 /**
  * @brief Sort all task using bubble sort
@@ -56,8 +59,8 @@ int task_create(task_t* tasks, size_t num_tasks)
 	/* sort tasks, rate monotonic */
 	sort_tasks(tasks, num_tasks);
 	/* init scheduler */
-	sched_init();
-	allocate_tasks(tasks, num_tasks);
+	sched_init(NULL);
+	allocate_tasks(&tasks, num_tasks);
 
 	/* switch from idle to task */
 	dispatch_nosave();
@@ -72,7 +75,7 @@ int event_wait(unsigned int dev)
         return -EINVAL;
 
     if(cur_tcb->holds_lock >= 1)
-        return -EHOLDSLOCK;
+        return -EINVAL;
 
     // Puts the calling task to sleep on given device number
     dev_wait(dev);

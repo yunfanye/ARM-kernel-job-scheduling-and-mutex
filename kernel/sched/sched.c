@@ -18,7 +18,12 @@
 #include <arm/exception.h>
 #include <arm/physmem.h>
 
+
+#define NULL ((void *)0)
+
 tcb_t system_tcb[OS_MAX_TASKS]; /*allocate memory for system TCBs */
+
+static void idle(void);
 
 void sched_init(task_t* main_task  __attribute__((unused)))
 {
@@ -69,7 +74,11 @@ void allocate_tasks(task_t** tasks, size_t num_tasks)
 {
 	int i;
 	sched_context_t* context;
-	for(i = 0; i < OS_MAX_TASKS; i++) {
+	task_t * task_list = *tasks;/* array */
+	task_t * task; /* pointer */
+	for(i = 0; i < num_tasks; i++) {
+		task = task_list[i];
+
 		system_tcb[i].native_prio = i;
 		system_tcb[i].cur_prio = i;
 		system_tcb[i].holds_lock = 0;

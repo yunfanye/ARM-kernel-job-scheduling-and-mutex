@@ -95,7 +95,7 @@ int mutex_lock(int mutex  __attribute__((unused)))
 
 	gtMutex[mutex].bLock = TRUE;
 	gtMutex[mutex].pHolding_Tcb = current;
-	current.holds_lock ++ ;
+	current -> holds_lock ++ ;
 	enable_interrupts();
 	return 0;
 }

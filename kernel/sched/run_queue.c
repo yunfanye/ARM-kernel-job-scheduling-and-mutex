@@ -13,6 +13,7 @@
 #include <sched.h>
 #include "sched_i.h"
 
+#define NULL ((void *)0)
 
 
 static tcb_t* run_list[OS_MAX_TASKS];
