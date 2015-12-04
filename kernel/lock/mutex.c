@@ -65,7 +65,7 @@ int mutex_lock(int mutex  __attribute__((unused)))
 	else if (gtMutex[mutex].bAvailable == TRUE)
 		return -EINVAL;
 
-	else if (gtMutex[mutex].bLock == TRUE && 
+	else if (gtMutex[mutex].bLock == TRUE || 
 		(gtMutex[mutex].pHolding_Tcb != NULL && gtMutex[mutex].pHolding_Tcb != current))
 	{
 		current -> sleep_queue = NULL;
@@ -87,7 +87,6 @@ int mutex_lock(int mutex  __attribute__((unused)))
 
 	gtMutex[mutex].bLock = TRUE;
 	gtMutex[mutex].pHolding_Tcb = current;
-	gtMutex[mutex].pSleep_queue = NULL;
 	current.holds_lock ++ ;
 	return 0;
 }
