@@ -5,6 +5,12 @@
 #include <exports.h>
 #include "timer.h"
 
+extern unsigned long _time;
+
+extern void dispatch_save();
+
+extern void dev_update(unsigned long milliseconds);
+
 void C_IRQ_handler() {
 	uint32_t now_count;
 	if(reg_read(OSTMR_OSSR_ADDR) & OSTMR_OSSR_M0) {		

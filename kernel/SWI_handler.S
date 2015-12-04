@@ -29,18 +29,20 @@ SWI_handler:
 	LDR 	r0, [lr, #-4]
 	BIC 	r0, r0, #0xff000000
 
-	@ Save spsr
+	@ Save spsr, SVC
 	MRS   r2, spsr
 	STMFD sp!, {r2}
-	@ Store user mode stack and link register
-	STMFD sp!, {sp, lr}^
+	@ Store user mode stack and link register, usr
+	STMFD sp, {sp, lr}^
+	SUB   sp, sp, #8
 
 	@ call C_SWI_hanlder(swi_num, old_r0, paras)
 	BL 		C_SWI_handler
 	
-	@ Restore stack and link register
-    LDMFD sp!, {sp, lr}^
-    @ Restore spsr
+	@ Restore stack and link register, usr
+    LDMFD sp, {sp, lr}^
+    ADD   sp, sp, #8
+    @ Restore spsr, SVC
     LDMFD sp!, {r2}
     MSR   spsr, r2
 
