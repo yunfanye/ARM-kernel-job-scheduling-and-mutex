@@ -21,6 +21,8 @@
 #include <exports.h> // temp
 #endif
 
+#define NULL ((void *)0)
+
 mutex_t gtMutex[OS_NUM_MUTEX];
 
 void mutex_init()

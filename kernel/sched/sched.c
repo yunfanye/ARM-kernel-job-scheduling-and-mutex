@@ -72,12 +72,12 @@ static void idle(void)
  */
 void allocate_tasks(task_t** tasks, size_t num_tasks)
 {
-	int i;
+	size_t i;
 	sched_context_t* context;
 	task_t * task_list = *tasks;/* array */
 	task_t * task; /* pointer */
 	for(i = 0; i < num_tasks; i++) {
-		task = task_list[i];
+		task = &task_list[i];
 
 		system_tcb[i].native_prio = i;
 		system_tcb[i].cur_prio = i;

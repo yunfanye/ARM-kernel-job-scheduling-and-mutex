@@ -42,4 +42,3 @@ run:
 	@ Jump to a loaded user program at address 0xa0000000.
 	MOV		lr, pc
 	LDR 	pc, =0xa0000000
-	SWI		EXIT_SWI

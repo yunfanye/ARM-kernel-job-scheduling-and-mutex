@@ -4,7 +4,7 @@
 @ 
 @ Date:    Oct. 29th, 2015
 
-#include <arm/addr.h>
+#include <arm/psr.h>
 
 	.file	"IRQ_handler.S"
 	.text
@@ -30,15 +30,17 @@ IRQ_handler:
 	MRS   r2, spsr
 	STMFD sp!, {r2}
 	@ Store user mode stack and link register, usr
-	STMFD sp!, {sp, lr}^
+	STMFD sp, {sp, lr}^
+	SUB   sp, sp, #8
 
 	@ call void C_IRQ_hanlder()
 	BL 		C_IRQ_handler
 
 	@ Restore stack and link register, usr
-    LDMFD sp!, {sp, lr}^
-    @ Restore spsr
-    LDMFD sp!, {r2}, SVC
+    LDMFD sp, {sp, lr}^
+    ADD   sp, sp, #8
+    @ Restore spsr, SVC
+    LDMFD sp!, {r2}
     MSR   spsr, r2
 
 

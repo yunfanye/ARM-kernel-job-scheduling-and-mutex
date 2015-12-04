@@ -17,7 +17,7 @@ MAKEFLAGS += -rR
 PACKAGES = dagger 
 
 .PHONY: all package clean clobber $(PACKAGES)
-all: package kernel
+all: clobber package kernel
 
 
 ############### ENVIRONMENT #####################
@@ -52,8 +52,8 @@ CWARNINGS_SAFE = -Wall -Wno-unused-parameter -Wextra -Wpointer-arith \
 CWARNINGS =  $(CWARNINGS_SAFE)
 CWARNINGS1 = $(CWARNINGS_SAFE) $(CWARNINGS_NOISY)
 
-KCFLAGS = -Os -ffreestanding -ffixed-r8 -nostdinc $(CWARNINGS)
-TCFLAGS = -Os -ffreestanding -nostdinc $(CWARNINGS)
+KCFLAGS = -g -ffreestanding -ffixed-r8 -nostdinc $(CWARNINGS)
+TCFLAGS = -g -ffreestanding -nostdinc $(CWARNINGS)
 ASFLAGS = -nostdinc -Wall -Wextra -Werror -DASSEMBLER
 KLDFLAGS = -nostdlib -N --fatal-warnings --warn-common -Ttext $(KLOAD_ADDR)
 TLDFLAGS = -nostdlib -N --fatal-warnings --warn-common -Ttext $(TLOAD_ADDR)
