@@ -12,3 +12,7 @@
 
 FUNC(sleep)
 	@ Add code here.  Put your names at the top.
+	STMFD	sp!, {r0-r12, lr}
+	swi		SLEEP_SWI
+	LDMFD	sp!, {r0-r12, lr}
+	mov		pc, lr

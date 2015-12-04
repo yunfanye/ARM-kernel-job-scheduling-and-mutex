@@ -11,4 +11,8 @@
 	.file "time.S"
 
 FUNC(time)
-	@ Add code here.  Put your name at the top.
+	@ Add code here.  Put your names at the top.
+	STMFD	sp!, {r1-r12, lr}
+	swi		TIME_SWI
+	LDMFD	sp!, {r1-r12, lr}
+	mov		pc, lr
