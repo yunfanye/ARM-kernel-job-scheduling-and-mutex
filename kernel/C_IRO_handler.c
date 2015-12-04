@@ -5,8 +5,6 @@
 #include <exports.h>
 #include "timer_constants.h"
 
-extern unsigned long _time;
-
 extern void dispatch_save();
 
 extern void dev_update(unsigned long milliseconds);

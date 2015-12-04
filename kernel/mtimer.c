@@ -14,7 +14,13 @@
 #include <arm/reg.h>
 #include <types.h>
 #include <exports.h>
-#include "timer.h"
+#include "timer_constants.h"
+
+
+#define INTV_OSTMR_0     1 << INT_OSTMR_0    /* OS Timer Match Register 0 Interrupt */
+#define INTV_OSTMR_1     1 << INT_OSTMR_1    /* OS Timer Match Register 1 Interrupt */
+#define INTV_OSTMR_2     1 << INT_OSTMR_2    /* OS Timer Match Register 2 Interrupt */
+#define INTV_OSTMR_3     1 << INT_OSTMR_3    /* OS Timer Match Register 3 Interrupt */
 
 void setup_timer() {
 	_time = 0;

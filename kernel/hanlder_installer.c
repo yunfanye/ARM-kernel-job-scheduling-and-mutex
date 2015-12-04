@@ -27,7 +27,7 @@ void install_handler(size_t vector, size_t new_addr,
 	 * 0xe51FF shows that #imm12 is a negative */
 	if((vec_instr & 0xe51FF000) != 0xe51FF000) {
 		puts("The instruction in vector is unrecognized!\n");
-		exit(0x0badc0de);
+		return;
 	}
 	/* retrieve #imm12 */
 	imm = vec_instr & 0xFFF;
