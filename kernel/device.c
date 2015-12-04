@@ -6,6 +6,7 @@
  * @date 2008-12-01
  */
 
+
 #include <types.h>
 #include <assert.h>
 
@@ -28,6 +29,8 @@
  * There is a wait queue for every device which contains the tcbs of
  * all tasks waiting on the device event to occur.
  */
+
+#define NULL	((void *)0)
 
 struct dev
 {

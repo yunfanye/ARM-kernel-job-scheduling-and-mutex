@@ -14,7 +14,7 @@
 #include <sched.h>
 #include <device.h>
 #include <assert.h>
-
+#include <arm/exception.h>
 
 /* constants */
 #define SWI_VECTOR				EX_SWI * 4
@@ -36,6 +36,9 @@ extern int run(int argc, char *argv[]);
 
 /* set initial value of the timer */
 extern void setup_timer();
+
+/* init mutex */
+extern void mutex_init();
 
 /* recover the change */
 extern void install_handler(size_t vector, size_t new_addr, 
@@ -65,7 +68,7 @@ int kmain(int argc, char** argv, uint32_t table)
 	setup_timer();
 
 	/* init mutex */
-	mutex_init()
+	mutex_init();
 
 	/* save processor state, set up user stack, and call user program 
 	 * after running the program, recover the uboot code */
