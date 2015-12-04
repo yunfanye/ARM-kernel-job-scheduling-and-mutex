@@ -20,5 +20,7 @@ void C_IRQ_handler() {
 		}
 		reg_write(OSTMR_OSCR_ADDR, now_count);
 		dev_update(_time);
+		/* check if need preemption */
+		dispatch_save();
 	}
 }

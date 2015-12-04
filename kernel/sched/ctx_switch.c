@@ -18,7 +18,7 @@
 #include <exports.h>
 #endif
 
-static __attribute__((unused)) tcb_t* cur_tcb; /* use this if needed */
+static tcb_t* cur_tcb; /* use this if needed */
 
 /**
  * @brief Initialize the current TCB and priority.
@@ -26,15 +26,17 @@ static __attribute__((unused)) tcb_t* cur_tcb; /* use this if needed */
  * Set the initialization thread's priority to IDLE so that anything
  * will preempt it when dispatching the first task.
  */
-void dispatch_init(tcb_t* idle __attribute__((unused)))
+void dispatch_init(tcb_t* idle)
 {
-	
+	cur_tcb = idle;
+	runqueue_remove(idle->cur_prio);
+	ctx_switch_half(&idle->context);
 }
 
 
 /**
  * @brief Context switch to the highest priority task while saving off the 
- * current task state.
+ * current task state. preempted.
  *
  * This function needs to be externally synchronized.
  * We could be switching from the idle task.  The priority searcher has been tuned
@@ -42,7 +44,22 @@ void dispatch_init(tcb_t* idle __attribute__((unused)))
  */
 void dispatch_save(void)
 {
-	
+    /* Only switch to higher priority task (lower num), actually never 
+     * called in current scenario
+     */
+    if(cur_tcb->cur_prio > highest_prio())
+    {
+        // Add current task to run queue
+        runqueue_add(cur_tcb, cur_tcb->cur_prio);
+
+        // Swap current task and the highest priority task in run queue
+        tcb_t* new_tcb = runqueue_remove(highest_prio());
+        tcb_t* old_tcb = cur_tcb;
+        cur_tcb = new_tcb;
+
+        // Switch to the highest priority task
+        ctx_switch_full(&cur_tcb->context, &old_tcb->context);
+    }
 }
 
 /**
@@ -53,19 +70,28 @@ void dispatch_save(void)
  */
 void dispatch_nosave(void)
 {
+    // Get the highest priority task in run queue
+    tcb_t* new_tcb = runqueue_remove(highest_prio());
+    cur_tcb = new_tcb;
 
+    // Switch to the highest priority task
+    ctx_switch_half(&new_tcb->context);
 }
 
 
 /**
  * @brief Context switch to the highest priority task that is not this task -- 
- * and save the current task but don't mark is runnable.
+ * and save the current task but don't mark is runnable. finished.
  *
  * There is always an idle task to switch to.
  */
 void dispatch_sleep(void)
 {
-	
+	// Get the highest priority task in run queue
+    tcb_t* new_tcb = runqueue_remove(highest_prio());
+    tcb_t* old_tcb = cur_tcb;
+    cur_tcb = new_tcb;
+    ctx_switch_full(&cur_tcb->context, &old_tcb->context);
 }
 
 /**
@@ -73,7 +99,7 @@ void dispatch_sleep(void)
  */
 uint8_t get_cur_prio(void)
 {
-	return 1; //fix this; dummy return to prevent compiler warning
+	return cur_tcb -> cur_prio;
 }
 
 /**
@@ -81,5 +107,5 @@ uint8_t get_cur_prio(void)
  */
 tcb_t* get_cur_tcb(void)
 {
-	return (tcb_t *) 0; //fix this; dummy return to prevent compiler warning
+	return cur_tcb;
 }
