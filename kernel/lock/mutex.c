@@ -69,16 +69,19 @@ int mutex_lock(int mutex  __attribute__((unused)))
 		enable_interrupts();
 		return -EINVAL;
 	}
-
 	else if (gtMutex[mutex].bAvailable == TRUE)
 	{
 		enable_interrupts();
 		return -EINVAL;
 	}
-
+	else if (gtMutex[mutex].bLock == TRUE && gtMutex[mutex].pHolding_Tcb == current)
+	{
+		enable_interrupts();
+		return -EDEADLOCK;
+	}
 	else if (gtMutex[mutex].bLock == TRUE || 
 		(gtMutex[mutex].pHolding_Tcb != NULL && gtMutex[mutex].pHolding_Tcb != current))
-	{
+	{		
 		current -> sleep_queue = NULL;
 		if(gtMutex[mutex].pSleep_queue == NULL)
 		{

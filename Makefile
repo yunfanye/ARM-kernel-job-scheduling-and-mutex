@@ -151,6 +151,7 @@ debug: all
        	sudo cp tasks/bin/mutex_chaser.bin /media/bootfs/mutex_chaser.bin; 	\
        	sudo cp tasks/bin/sys_err.bin /media/bootfs/sys_err.bin; 			\
        	sudo cp tasks/bin/cyclone.bin /media/bootfs/cyclone.bin; 			\
+       	sudo cp tasks/bin/stress.bin /media/bootfs/stress.bin; 				\
        	arm-linux-objdump -d kernel/kernel >> kernel_debug.s; 				\
        	arm-linux-objdump -d tasks/bin/dagger >> dagger_debug.s)
 
