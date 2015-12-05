@@ -52,11 +52,11 @@ CWARNINGS_SAFE = -Wall -Wno-unused-parameter -Wextra -Wpointer-arith \
 CWARNINGS =  $(CWARNINGS_SAFE)
 CWARNINGS1 = $(CWARNINGS_SAFE) $(CWARNINGS_NOISY)
 
-KCFLAGS = -Os -ffreestanding -ffixed-r8 -nostdinc $(CWARNINGS)
-TCFLAGS = -Os -ffreestanding -nostdinc $(CWARNINGS)
-ASFLAGS = -nostdinc -Wall -Wextra -Werror -DASSEMBLER
-KLDFLAGS = -nostdlib -N --fatal-warnings --warn-common -Ttext $(KLOAD_ADDR)
-TLDFLAGS = -nostdlib -N --fatal-warnings --warn-common -Ttext $(TLOAD_ADDR)
+KCFLAGS = -g -ffreestanding -ffixed-r8 -nostdinc $(CWARNINGS)
+TCFLAGS = -g  -ffreestanding -nostdinc $(CWARNINGS)
+ASFLAGS = -g -nostdinc -Wall -Wextra -Werror -DASSEMBLER
+KLDFLAGS = -g -nostdlib -N --fatal-warnings --warn-common -Ttext $(KLOAD_ADDR)
+TLDFLAGS = -g -nostdlib -N --fatal-warnings --warn-common -Ttext $(TLOAD_ADDR)
 
 KINCLUDES = -I$(UDIR)/include -I$(KDIR)/include
 TINCLUDES = -I$(TLIBCDIR)/include
@@ -148,6 +148,8 @@ debug: all
        	sudo cp kernel/kernel.bin /media/bootfs/kernel.bin; 				\
        	sudo cp tasks/bin/dagger.bin /media/bootfs/dagger.bin; 				\
        	sudo cp tasks/bin/simple_mutex.bin /media/bootfs/simple_mutex.bin; 	\
+       	sudo cp tasks/bin/mutex_chaser.bin /media/bootfs/mutex_chaser.bin; 	\
+       	sudo cp tasks/bin/sys_err.bin /media/bootfs/sys_err.bin; 			\
        	sudo cp tasks/bin/cyclone.bin /media/bootfs/cyclone.bin; 			\
        	arm-linux-objdump -d kernel/kernel >> kernel_debug.s; 				\
        	arm-linux-objdump -d tasks/bin/dagger >> dagger_debug.s)
