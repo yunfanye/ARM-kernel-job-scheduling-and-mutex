@@ -16,6 +16,7 @@
 #include <exports.h>
 #include "timer_constants.h"
 
+unsigned long _time;
 
 #define INTV_OSTMR_0     1 << INT_OSTMR_0    /* OS Timer Match Register 0 Interrupt */
 #define INTV_OSTMR_1     1 << INT_OSTMR_1    /* OS Timer Match Register 1 Interrupt */

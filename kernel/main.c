@@ -14,6 +14,7 @@
 #include <sched.h>
 #include <device.h>
 #include <assert.h>
+#include <arm/psr.h>
 #include <arm/exception.h>
 
 /* constants */
