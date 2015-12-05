@@ -12,7 +12,7 @@
 #include <arm/timer.h>
 #include <syscall.h>
 
-extern unsigned long _time;
+extern volatile unsigned long _time;
 
 unsigned long time_syscall(void)
 {

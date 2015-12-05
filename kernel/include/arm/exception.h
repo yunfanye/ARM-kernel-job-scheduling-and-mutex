@@ -22,6 +22,8 @@
 
 #ifndef ASSEMBLER
 
+#include <inline.h>
+
 /* Register context. */
 struct ex_context
 {
@@ -47,9 +49,21 @@ void destroy_exception(void);
 void install_exception_handler(unsigned int exn_num, void (*handler)(void))
 	__attribute__((nonnull));
 
-void enable_interrupts(void);
+INLINE void enable_interrupts(void)
+{
+	uint32_t cpsr;
+	asm volatile ("mrs %0, cpsr" : "=r" (cpsr));
+	cpsr &= ~(PSR_IRQ | PSR_FIQ);
+	asm volatile ("msr cpsr_c, %0" : : "r" (cpsr) : "memory", "cc");
+}
 
-void disable_interrupts(void);
+INLINE void disable_interrupts(void)
+{
+	uint32_t cpsr;
+	asm volatile ("mrs %0, cpsr" : "=r" (cpsr));
+	cpsr |= PSR_IRQ | PSR_FIQ;
+	asm volatile ("msr cpsr_c, %0" : : "r" (cpsr) : "memory", "cc");
+}
 
 #endif /* ASSEMBLER */
 

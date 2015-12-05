@@ -5,7 +5,7 @@
 #include <exports.h>
 #include "timer_constants.h"
 
-extern unsigned long _time;
+extern volatile unsigned long _time;
 
 extern void dispatch_save();
 

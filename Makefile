@@ -52,11 +52,11 @@ CWARNINGS_SAFE = -Wall -Wno-unused-parameter -Wextra -Wpointer-arith \
 CWARNINGS =  $(CWARNINGS_SAFE)
 CWARNINGS1 = $(CWARNINGS_SAFE) $(CWARNINGS_NOISY)
 
-KCFLAGS = -g -ffreestanding -ffixed-r8 -nostdinc $(CWARNINGS)
-TCFLAGS = -g  -ffreestanding -nostdinc $(CWARNINGS)
-ASFLAGS = -g -nostdinc -Wall -Wextra -Werror -DASSEMBLER
-KLDFLAGS = -g -nostdlib -N --fatal-warnings --warn-common -Ttext $(KLOAD_ADDR)
-TLDFLAGS = -g -nostdlib -N --fatal-warnings --warn-common -Ttext $(TLOAD_ADDR)
+KCFLAGS = -Os -ffreestanding -ffixed-r8 -nostdinc $(CWARNINGS)
+TCFLAGS = -Os -ffreestanding -nostdinc $(CWARNINGS)
+ASFLAGS = -nostdinc -Wall -Wextra -Werror -DASSEMBLER
+KLDFLAGS = -nostdlib -N --fatal-warnings --warn-common -Ttext $(KLOAD_ADDR)
+TLDFLAGS = -nostdlib -N --fatal-warnings --warn-common -Ttext $(TLOAD_ADDR)
 
 KINCLUDES = -I$(UDIR)/include -I$(KDIR)/include
 TINCLUDES = -I$(TLIBCDIR)/include
