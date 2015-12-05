@@ -26,6 +26,8 @@
 
 extern void runqueue_init();
 
+extern int valid_addr(const void* start, size_t count, uintptr_t base, uintptr_t bound);
+
 /**
  * @brief Sort all task using bubble sort
  */
@@ -53,6 +55,12 @@ int task_create(task_t* tasks, size_t num_tasks)
 {
 	if(num_tasks <= 0 || num_tasks > OS_AVAIL_TASKS)
         return -EINVAL;
+
+    if(!valid_addr(tasks, num_tasks, RAM_START_ADDR, RAM_END_ADDR)) {
+        return -EFAULT;
+    }
+    /* change run queue, avoid IRQ, all previous tasks ignored */
+    disable_interrupts();
 	/* init devices and run queue */
 	dev_init();
 	runqueue_init();
@@ -70,7 +78,6 @@ int task_create(task_t* tasks, size_t num_tasks)
 
 int event_wait(unsigned int dev)
 {
-    tcb_t* cur_tcb = get_cur_tcb();
     if(dev >= NUM_DEVICES)
         return -EINVAL;
 
