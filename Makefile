@@ -144,9 +144,10 @@ clobber: clean
 	@$(RM) $(ALL_CLOBBERS)
 
 debug: all
-       (sudo cp kernel/kernel.bin /media/bootfs/kernel.bin; 	\
-       	sudo cp tasks/bin/dagger.bin /media/bootfs/dagger.bin; 	\
-       	arm-linux-objdump -d kernel/kernel >> kernel_debug.s; 	\
+       (sudo cp kernel/kernel.bin /media/bootfs/kernel.bin; 		\
+       	sudo cp tasks/bin/dagger.bin /media/bootfs/dagger.bin; 		\
+       	sudo cp tasks/bin/cyclone.bin /media/bootfs/cyclone.bin; 	\
+       	arm-linux-objdump -d kernel/kernel >> kernel_debug.s; 		\
        	arm-linux-objdump -d tasks/bin/dagger >> dagger_debug.s)
 
 
