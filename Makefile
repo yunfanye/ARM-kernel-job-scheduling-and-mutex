@@ -143,6 +143,12 @@ clobber: clean
 	@echo CLEAN others
 	@$(RM) $(ALL_CLOBBERS)
 
+debug: all
+       (sudo cp kernel/kernel.bin /media/bootfs/kernel.bin; 	\
+       	sudo cp tasks/bin/dagger.bin /media/bootfs/dagger.bin; 	\
+       	arm-linux-objdump -d kernel/kernel >> kernel_debug.s; 	\
+       	arm-linux-objdump -d tasks/bin/dagger >> dagger_debug.s)
+
 
 ########### DEPENDENCY FILE INCLUSION ############
 
