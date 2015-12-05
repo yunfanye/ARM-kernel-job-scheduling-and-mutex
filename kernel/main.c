@@ -18,13 +18,13 @@
 #include <arm/exception.h>
 
 /* constants */
-#define SWI_VECTOR				EX_SWI * 4
-#define IRQ_VECTOR				EX_IRQ * 4
+#define SWI_VECTOR				(EX_SWI * 4)
+#define IRQ_VECTOR				(EX_IRQ * 4)
 
 uint32_t global_data;
 
 /* IRO_handler written in assembly, call C_IRO_handler */
-extern size_t IRQ_handler();
+extern size_t irq_wrapper();
 
 /* SWI_handler written in assembly, call C_SWI_handler */
 extern size_t SWI_handler();
@@ -58,7 +58,7 @@ int kmain(int argc, char** argv, uint32_t table)
 	/* add your code up to assert statement */
 	
 	/* hijack the original IRQ handler */
-	new_addr = (size_t) &IRQ_handler;
+	new_addr = (size_t) &irq_wrapper;
 	vector = IRQ_VECTOR;
 	install_handler(vector, new_addr, &irq_handler_addr, &irq_saved1, &irq_saved2);
 	/* hijack the original SWI handler */

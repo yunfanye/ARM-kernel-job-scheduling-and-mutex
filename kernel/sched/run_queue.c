@@ -36,7 +36,7 @@ static uint8_t group_run_bits;
 static uint8_t prio_unmap_table[] =
 {
 
-0, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0,
+7, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0,
 4, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0,
 5, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0,
 4, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0,
@@ -116,6 +116,6 @@ uint8_t highest_prio(void)
 {
 	uint8_t high_group, high_task;
 	high_group = prio_unmap_table[group_run_bits];
-	high_task = prio_unmap_table[high_group];
-	return high_task; 
+	high_task = prio_unmap_table[run_bits[high_group]];
+	return (high_group * 8 + high_task); 
 }

@@ -52,5 +52,5 @@ FUNC(ctx_switch_full)
 FUNC(ctx_switch_half)
 
 	@ restore context
-	LDMIA	r0!, {r4-r11, sp, lr}
+	LDMIA	r0, {r4-r11, sp, lr}
 	MOV 	pc, lr

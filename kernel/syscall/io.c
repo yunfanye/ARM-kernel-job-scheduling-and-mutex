@@ -76,7 +76,7 @@ ssize_t write_syscall(int fd, const void *buf, size_t count)
 	}
 	/* check if buf is readable, SDRAM or ROM */
 	if(!((size_t)buf >= SDRAM_start && (size_t)buf + count <= SDRAM_end) &&
-		!((size_t)buf >= ROM_start + 1 && (size_t)buf + count <= ROM_end)) {
+		!((size_t)buf >= ROM_start && (size_t)buf + count <= ROM_end)) {
 		return -EFAULT;
 	}
 	for(bytes_written = 0; bytes_written < count; bytes_written++) {

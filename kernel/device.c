@@ -30,6 +30,8 @@
  * all tasks waiting on the device event to occur.
  */
 
+extern unsigned long _time;
+
 #define NULL	((void *)0)
 
 struct dev
@@ -52,7 +54,7 @@ void dev_init(void)
 	for(; i < NUM_DEVICES; i++)
 	{
 		devices[i].sleep_queue = NULL;
-		devices[i].next_match = dev_freq[i] + (unsigned long)0;//???
+		devices[i].next_match = dev_freq[i] + _time;
 	}
 }
 
@@ -68,6 +70,7 @@ void dev_wait(unsigned int dev __attribute__((unused)))
 	//??disable interrupt
 	tcb_t * sleep_queue_current = devices[dev].sleep_queue;
 	tcb_t * run_current = get_cur_tcb();
+	run_current -> sleep_queue = NULL;
 	if(devices[dev].sleep_queue == NULL)
 	{
 		devices[dev].sleep_queue = run_current;
@@ -80,7 +83,6 @@ void dev_wait(unsigned int dev __attribute__((unused)))
 		}
 		sleep_queue_current -> sleep_queue = run_current;
 	}
-	// no other??
 }
 /*
 dev_wait is called by tasks (through event_wait) when they want to wait for an event
@@ -102,14 +104,16 @@ void dev_update(unsigned long millis __attribute__((unused)))
 		{
 			devices[i].next_match += dev_freq[i];
 			tcb_t * sleep_queue_current = devices[i].sleep_queue;
-
+			tcb_t * tmp;
 			// put all tasks in the sleep queue to the run queue
 			while(sleep_queue_current != NULL)
 			{
-				sleep_queue_current -> sleep_queue = NULL;
+				tmp = sleep_queue_current;
 				runqueue_add(sleep_queue_current, sleep_queue_current -> cur_prio);
 				sleep_queue_current = sleep_queue_current -> sleep_queue;
+				tmp -> sleep_queue = NULL;
 			}
+			devices[i].sleep_queue = NULL;
 		}
 	}
 }
