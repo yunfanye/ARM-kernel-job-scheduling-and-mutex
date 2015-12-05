@@ -62,7 +62,7 @@ int task_create(task_t* tasks, size_t num_tasks)
 	sched_init(NULL);
 	allocate_tasks(&tasks, num_tasks);
 
-	/* switch from idle to task */
+	/* switch from NULL to task */
 	dispatch_nosave();
 
 	return 1; /* remove this line after adding your code */

@@ -45,6 +45,8 @@ void sched_init(task_t* main_task  __attribute__((unused)))
     context->r11 = 0;
     context->sp = system_tcb[IDLE_PRIO].kstack_high;
     context->lr = launch_task;
+
+    runqueue_add(&system_tcb[IDLE_PRIO], IDLE_PRIO);
 }
 
 /**

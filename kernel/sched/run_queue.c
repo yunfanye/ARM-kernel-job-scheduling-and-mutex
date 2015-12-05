@@ -104,7 +104,7 @@ tcb_t* runqueue_remove(uint8_t prio  __attribute__((unused)))
 	run_bits[task_group] = run_bits[task_group] & (uint8_t)( ~ (1 << task_position));
 
 	if(run_bits[task_group] == 0)
-		group_run_bits = group_run_bits | (uint8_t)( ~ (1 << task_group));
+		group_run_bits = group_run_bits & (uint8_t)( ~ (1 << task_group));
 	return retval; // fix this; dummy return to prevent warning messages	
 }
 
