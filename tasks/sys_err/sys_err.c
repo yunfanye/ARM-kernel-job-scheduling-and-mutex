@@ -56,14 +56,15 @@ int main(int argc, char** argv)
 {
 	puts("TEST BEGIN!\n");
 	int ret;
-
-	task_t tasks[1];
-	tasks[0].lambda = fun1;
-	tasks[0].data = (void*)'@';
-	tasks[0].stack_pos = (void*)0xa2000000;
-	tasks[0].C = 1;
-	tasks[0].T = PERIOD_DEV0;
-
+	int i;
+	task_t tasks[64];
+	for(i = 0; i < 64; i++) {	
+		tasks[i].lambda = fun1;
+		tasks[i].data = (void*)'@';
+		tasks[i].stack_pos = (void*)0xa2000000;
+		tasks[i].C = 10;
+		tasks[i].T = PERIOD_DEV0;
+	}
 	// this should fail and return EINVAL
 	ret = task_create(tasks, 65);
 	check_return(errno,EINVAL,"1. Test create return EINVAL");
@@ -71,6 +72,9 @@ int main(int argc, char** argv)
 	ret = task_create((task_t *)0xdeadbeef, 30);
 	check_return(errno,EFAULT,"2. Test create return EFAULT");
 	
+	ret = task_create(tasks, 9);
+	check_return(errno,ESCHED,"2.a. Test create return ESCHED");
+
 	ret = task_create(tasks, 1);
 	puts("TEST END!\n");
 	argc = argc;
