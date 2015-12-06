@@ -59,6 +59,11 @@ int task_create(task_t* tasks, size_t num_tasks)
     if(!valid_addr(tasks, num_tasks, RAM_START_ADDR, RAM_END_ADDR)) {
         return -EFAULT;
     }
+
+    if(!assign_schedule(&tasks, num_tasks)) {
+        return -ESCHED;
+    }
+
     /* change run queue, avoid IRQ, all previous tasks ignored */
     disable_interrupts();
 	/* init devices and run queue */
