@@ -83,13 +83,13 @@ int task_create(task_t* tasks, size_t num_tasks)
 
 int event_wait(unsigned int dev)
 {
+    tcb_t * cur_tcb = get_cur_tcb();
     if(dev >= NUM_DEVICES)
         return -EINVAL;
 
-    /* generally, a task go sleeping with a lock; but testcases do. */
-    /* if(cur_tcb->holds_lock >= 1)
-     *   return -EINVAL;
-     */
+    /* a task should go sleeping with a lock */
+    if(cur_tcb->holds_lock >= 1)
+       return -EHOLDSLOCK;
 
     // Puts the calling task to sleep on given device number
     dev_wait(dev);

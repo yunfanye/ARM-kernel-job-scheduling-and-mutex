@@ -16,7 +16,6 @@
 
 static double ub_table[] = 
 {
-	1.0,
 	1.0, 0.8284, 0.7798, 0.7568, 0.7435, 0.7348, 0.7286, 0.7241, 
 	0.7205, 0.7177, 0.7155, 0.7136, 0.712, 0.7106, 0.7094, 0.7084, 
 	0.7075, 0.7067, 0.7059, 0.7053, 0.7047, 0.7042, 0.7037, 0.7033, 
@@ -30,6 +29,7 @@ static double ub_table[] =
 /**
  * @brief Perform UB Test and reorder the task list.
  *
+ * Input already sorted.
  * The task list at the end of this method will be sorted in order is priority
  * -- from highest priority (lowest priority number) to lowest priority
  * (highest priority number).
@@ -43,19 +43,18 @@ static double ub_table[] =
 int assign_schedule(task_t** tasks, size_t num_tasks)
 {
 	size_t i;
-	sched_context_t* context;
 	task_t * task_list = *tasks;/* array */
 	task_t * task; /* pointer */
 	double util = 0.0;
-
+	double block_util = 0.0;
 	for(i = 0; i < num_tasks; i++) {
 		task = &task_list[i];
 		util += (double)task -> C / (double)task -> T;
-	}
-	if(util <= ub_table[num_tasks])
-		return 1;
-	else
-		return 0;	
+		block_util = (double)task -> B / (double)task -> T;
+		if(util + block_util > ub_table[i])
+			return 0;
+	}		
+	return 1;
 }
 	
 
