@@ -102,6 +102,10 @@ int mutex_lock(int mutex  __attribute__((unused)))
 	gtMutex[mutex].bLock = TRUE;
 	gtMutex[mutex].pHolding_Tcb = current;
 	current -> holds_lock ++ ;
+
+	current -> native_prio = current -> cur_prio;
+	current -> cur_prio = 0;
+
 	enable_interrupts();
 	return 0;
 }
@@ -143,6 +147,9 @@ int mutex_unlock(int mutex  __attribute__((unused)))
     		gtMutex[mutex].pHolding_Tcb = NULL;
 		}
 		enable_interrupts();
+
+		current -> cur_prio = current -> native_prio;
+		
 		return 0;
 	}
 }
